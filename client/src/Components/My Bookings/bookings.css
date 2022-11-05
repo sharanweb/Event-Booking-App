@@ -1,0 +1,26 @@
+.card_container{
+    margin: auto;
+    display: grid;
+   
+    grid-template-columns: repeat(3,1fr);
+    padding-left: 30px;
+    width: 1200px;
+}
+
+.meet_body{
+    background-color: rgb(248, 252, 251);
+}
+
+.meeting_select{
+    width: 1200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 70px;
+}
+
+.meet_title{
+    margin-top: 20px;
+    margin-left: 45px;
+    color: rgb(67, 44, 122);
+}

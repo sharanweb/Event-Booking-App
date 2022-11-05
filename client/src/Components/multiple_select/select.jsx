@@ -14,7 +14,7 @@ import { MenuProps, useStyles, options } from "./utils";
 export const Selects = () => {
   const classes = useStyles();
   const [selected, setSelected] = useState([]);
-  console.log("selected", selected)
+  //console.log("selected", selected)
   const isAllSelected =
     options.length > 0 && selected.length === options.length;
 

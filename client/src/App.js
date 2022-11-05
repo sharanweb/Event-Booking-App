@@ -1,14 +1,13 @@
 import { Allroutes } from "./Routes/Allroutes";
 import {Navbar} from "./Components/Navbar/navbar"
+import { CardS } from "./Components/card/card";
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Navbar></Navbar>
       <Allroutes></Allroutes>
-      
-      
-    </div>
+    </>
   );
 }
 
