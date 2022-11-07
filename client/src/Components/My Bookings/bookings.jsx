@@ -39,10 +39,9 @@ export const Meetings = () => {
     <div className="meet_body">
       <div className="meeting_select">
         <Box>
-           <h2 className="meet_title">All Meetings</h2>
-
+          <h2 className="meet_title">All Meetings</h2>
         </Box>
-        <Box sx={{ width:200,mt:2, mb:1 }}>
+        <Box sx={{ width: 200, mt: 2, mb: 1 }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Filter</InputLabel>
             <Select
@@ -55,9 +54,9 @@ export const Meetings = () => {
               label="Age"
               onChange={handleChange}
             >
-              <MenuItem >Completed</MenuItem>
-              <MenuItem >Upcoming</MenuItem>
-              <MenuItem >Hosted by You</MenuItem>
+              <MenuItem>Completed</MenuItem>
+              <MenuItem>Upcoming</MenuItem>
+              <MenuItem>Hosted by You</MenuItem>
             </Select>
           </FormControl>
         </Box>

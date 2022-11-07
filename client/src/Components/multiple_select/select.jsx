@@ -9,8 +9,6 @@ import Select from "@material-ui/core/Select";
 
 import { MenuProps, useStyles, options } from "./utils";
 
-
-
 export const Selects = () => {
   const classes = useStyles();
   const [selected, setSelected] = useState([]);
@@ -41,7 +39,7 @@ export const Selects = () => {
         <MenuItem
           value="all"
           classes={{
-            root: isAllSelected ? classes.selectedAll : ""
+            root: isAllSelected ? classes.selectedAll : "",
           }}
         >
           <ListItemIcon>
@@ -69,5 +67,4 @@ export const Selects = () => {
       </Select>
     </FormControl>
   );
-}
-
+};

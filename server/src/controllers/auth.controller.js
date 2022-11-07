@@ -10,14 +10,15 @@ const signup = async (req, res) => {
   try {
     const user = await User.create(req.body);
     const token = newToken(user);
-    res.status(201).json({ status: "Success", user:user, token: token});
+    res.status(201).json({ status: "Success", user: user, token: token });
   } catch (err) {
-    res.status(500).json({ error: `something went wrong with signup ${err.message}` });
+    res
+      .status(500)
+      .json({ error: `something went wrong with signup ${err.message}` });
   }
 };
 
 const signin = async (req, res) => {
- 
   try {
     // we will try to find the user with the email provided
     const user = await User.findOne({ email: req.body.email });
@@ -40,7 +41,7 @@ const signin = async (req, res) => {
     const token = newToken(user);
 
     // then return the user and the token
-    res.send({ user:user, token:token, status: "success"});
+    res.send({ user: user, token: token, status: "success" });
   } catch (err) {
     res.status(500).send(err.message);
   }

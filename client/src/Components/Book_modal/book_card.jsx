@@ -12,8 +12,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Autocomplete from "@mui/material/Autocomplete";
-import "./book_card.css"
+import "./book_card.css";
 import Link from "@mui/material/Link";
+import { blue } from "@mui/material/colors";
 
 const theme = createTheme();
 
@@ -36,8 +37,13 @@ export const BookModal = () => {
   const [from, setFrom] = React.useState(null);
   const [to, setTo] = useState(null);
   const [formdata, setFormData] = useState({
-    
-  })
+    host: "",
+    date: "",
+    fromtime: "",
+    totime: "",
+    guests: [],
+    desription: "",
+  });
 
   const options = names.map((option) => {
     const firstLetter = option.name[0].toUpperCase();
@@ -50,7 +56,7 @@ export const BookModal = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Container >
+        <Container>
           <Box
             sx={{
               display: "flex",
@@ -62,10 +68,11 @@ export const BookModal = () => {
               sx={{
                 width: 300,
                 height: 450,
-                
-                border: 1,
+                mt: 2,
+                backgroundColor: blue[50],
                 padding: 2,
                 borderColor: "black",
+                boxShadow: 3,
                 borderRadius: "16px",
                 alignItems: "center",
                 "&:hover": {
@@ -77,17 +84,21 @@ export const BookModal = () => {
               <Box
                 component="form"
                 noValidate
-                sx={{ mt: 1.5,display: "flex",
-                flexDirection: "column",
-                justifyContent:"space-between", height:400 }}
+                sx={{
+                  mt: 1.5,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  height: 400,
+                }}
               >
                 <TextField
                   id="outlined-basic"
                   label="Event name"
                   variant="outlined"
+                  sx={{ width: 300 }}
                   size="small"
                   fullWidth
-                  
                 ></TextField>
                 <Box>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -97,7 +108,13 @@ export const BookModal = () => {
                       onChange={(newValue) => {
                         setDate(newValue);
                       }}
-                      renderInput={(params) => <TextField {...params} size="small"/>}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          size="small"
+                          sx={{ width: 300 }}
+                        />
+                      )}
                     />
                   </LocalizationProvider>
                 </Box>
@@ -115,7 +132,9 @@ export const BookModal = () => {
                       onChange={(newValue) => {
                         setFrom(newValue);
                       }}
-                      renderInput={(params) => <TextField {...params} size="small" />}
+                      renderInput={(params) => (
+                        <TextField {...params} size="small" />
+                      )}
                     />
                   </LocalizationProvider>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -127,7 +146,9 @@ export const BookModal = () => {
                       onChange={(newValue) => {
                         setTo(newValue);
                       }}
-                      renderInput={(params) => <TextField {...params} size="small" />}
+                      renderInput={(params) => (
+                        <TextField {...params} size="small" />
+                      )}
                     />
                   </LocalizationProvider>
                 </Box>
@@ -151,8 +172,8 @@ export const BookModal = () => {
                     id="outlined-multiline-static"
                     label="Description"
                     multiline
+                    sx={{ width: 300 }}
                     rows={3}
-                    defaultValue="Default Value"
                   />
                 </Box>
                 <Button variant="contained">Contained</Button>

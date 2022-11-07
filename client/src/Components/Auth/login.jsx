@@ -1,31 +1,34 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
-import {Link as Linked} from 'react-router-dom';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import { Link as Linked } from "react-router-dom";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         EventBookie
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -36,17 +39,16 @@ export const SignIn = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
-    email:"",
-    password:""
-  })
+    email: "",
+    password: "",
+  });
 
   //console.log(formData)
 
-  const handleChange = (e)=>{
-    const {value, name} = e.target;
-    setFormData({...formData, [name]:value})
-  }
-
+  const handleChange = (e) => {
+    const { value, name } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -56,7 +58,7 @@ export const SignIn = () => {
       .then((res) => {
         if (res.data.token) {
           enqueueSnackbar("Login successfull");
-          navigate("/")
+          navigate("/");
         }
       })
       .catch((err) => {
@@ -65,9 +67,8 @@ export const SignIn = () => {
 
     setFormData({
       email: "",
-      password:""
-    })
-    
+      password: "",
+    });
   };
 
   return (
@@ -77,21 +78,24 @@ export const SignIn = () => {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign In
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
-              
-              
               <Grid item xs={12}>
                 <TextField
                   required
@@ -99,7 +103,7 @@ export const SignIn = () => {
                   id="email"
                   label="Email Address"
                   name="email"
-                  value = {formData.email}
+                  value={formData.email}
                   onChange={handleChange}
                   autoComplete="email"
                 />
@@ -117,7 +121,6 @@ export const SignIn = () => {
                   autoComplete="new-password"
                 />
               </Grid>
-              
             </Grid>
             <Button
               type="submit"
@@ -130,9 +133,7 @@ export const SignIn = () => {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/signup" variant="body2">
-                    
-                    Do not have an account? Register
-                    
+                  Do not have an account? Register
                 </Link>
               </Grid>
             </Grid>
@@ -142,4 +143,4 @@ export const SignIn = () => {
       </Container>
     </ThemeProvider>
   );
-}
+};

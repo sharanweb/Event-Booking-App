@@ -12,11 +12,13 @@ const eventSchema = new mongoose.Schema(
     type: { type: String, required: true, default: "onetime" },
     fromtime: { type: Number, required: true },
     totime: { type: Number, required: true },
-    guests: [{
+    guests: [
+      {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
         required: true,
-      }],
+      },
+    ],
     description: { type: String, required: true },
   },
   {
@@ -26,4 +28,4 @@ const eventSchema = new mongoose.Schema(
 );
 
 const Event = mongoose.model("event", eventSchema);
-module.exports = Event
+module.exports = Event;
