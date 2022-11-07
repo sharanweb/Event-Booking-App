@@ -13,6 +13,7 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Autocomplete from "@mui/material/Autocomplete";
 import "./book_card.css"
+import Link from "@mui/material/Link";
 
 const theme = createTheme();
 
@@ -34,6 +35,9 @@ export const BookModal = () => {
   const [date, setDate] = React.useState(null);
   const [from, setFrom] = React.useState(null);
   const [to, setTo] = useState(null);
+  const [formdata, setFormData] = useState({
+    
+  })
 
   const options = names.map((option) => {
     const firstLetter = option.name[0].toUpperCase();
@@ -57,9 +61,8 @@ export const BookModal = () => {
             <Box
               sx={{
                 width: 300,
-                height: 500,
-                display: "flex",
-                flexDirection: "column",
+                height: 450,
+                
                 border: 1,
                 padding: 2,
                 borderColor: "black",
@@ -74,13 +77,17 @@ export const BookModal = () => {
               <Box
                 component="form"
                 noValidate
-                sx={{ mt: 3, border: 1, borderColor: "grey.500" }}
+                sx={{ mt: 1.5,display: "flex",
+                flexDirection: "column",
+                justifyContent:"space-between", height:400 }}
               >
                 <TextField
                   id="outlined-basic"
                   label="Event name"
                   variant="outlined"
                   size="small"
+                  fullWidth
+                  
                 ></TextField>
                 <Box>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -90,7 +97,7 @@ export const BookModal = () => {
                       onChange={(newValue) => {
                         setDate(newValue);
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params) => <TextField {...params} size="small"/>}
                     />
                   </LocalizationProvider>
                 </Box>
@@ -108,7 +115,7 @@ export const BookModal = () => {
                       onChange={(newValue) => {
                         setFrom(newValue);
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params) => <TextField {...params} size="small" />}
                     />
                   </LocalizationProvider>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -120,7 +127,7 @@ export const BookModal = () => {
                       onChange={(newValue) => {
                         setTo(newValue);
                       }}
-                      renderInput={(params) => <TextField {...params} />}
+                      renderInput={(params) => <TextField {...params} size="small" />}
                     />
                   </LocalizationProvider>
                 </Box>
@@ -144,7 +151,7 @@ export const BookModal = () => {
                     id="outlined-multiline-static"
                     label="Description"
                     multiline
-                    rows={4}
+                    rows={3}
                     defaultValue="Default Value"
                   />
                 </Box>
