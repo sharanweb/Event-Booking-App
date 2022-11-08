@@ -17,6 +17,8 @@ export const Meetings = () => {
   const [dataa, setData] = useState([]);
   const [age, setAge] = React.useState("");
 
+  let hostid = JSON.parse(localStorage.getItem("username")).user._id;
+
   const handleChange = (event) => {
     setAge(event.target.value);
   };
@@ -55,8 +57,8 @@ export const Meetings = () => {
               onChange={handleChange}
             >
               <MenuItem>Completed</MenuItem>
-              <MenuItem>Upcoming</MenuItem>
-              <MenuItem>Hosted by You</MenuItem>
+              <MenuItem >Upcoming</MenuItem>
+              <MenuItem value={hostid}>Hosted by You</MenuItem>
             </Select>
           </FormControl>
         </Box>

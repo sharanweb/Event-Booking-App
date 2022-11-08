@@ -28,6 +28,30 @@ router.get("/:id", async (req, res) => {
     return res.status(500).send(error.message);
   }
 });
+
+router.get("/host/:id", async (req, res) => {
+  try {
+    let event = await Event.find().populate().lean().exec();
+    console.log(event)
+    let newarr = [];
+    for(let i=0; i<event.length; i++){
+      if(event[i].host._id == req.params.id){
+        newarr.push(event[i]);
+        
+      }
+    }
+    return res.status(201).send({ eventbyid: newarr});
+    // if(event.host._id == req.params.id){
+      
+    //   
+    // }
+    
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
+
+
 router.patch("/:id", async (req, res) => {
   try {
     let event = await Event.findByIdAndUpdate(req.params.id, req.body, {
