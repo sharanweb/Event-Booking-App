@@ -1,6 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -11,47 +9,114 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import Autocomplete from "@mui/material/Autocomplete";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import "./book_card.css";
-import Link from "@mui/material/Link";
+import { useTheme } from "@mui/material/styles";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import { blue } from "@mui/material/colors";
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 const theme = createTheme();
 
-const names = [
-  { name: "arun" },
-  { name: "barun" },
-  { name: "carun" },
-  { name: "darun" },
-  { name: "earun" },
-  { name: "farun" },
-  { name: "garun" },
-  { name: "harun" },
-  { name: "iarun" },
-  { name: "jarun" },
-  { name: "karun" },
-];
+const ITEM_HEIGHT = 35;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 200,
+    },
+  },
+};
 
+//booking components
 export const BookModal = () => {
-  const [date, setDate] = React.useState(null);
-  const [from, setFrom] = React.useState(null);
-  const [to, setTo] = useState(null);
+   //storing data from select tag
+  const [userData, setUserData] = useState([]); //function to fetch user data
   const [formdata, setFormData] = useState({
     host: "",
+    name: "",
     date: "",
+    type: "onetime",
     fromtime: "",
     totime: "",
     guests: [],
-    desription: "",
+    description: "",
   });
 
-  const options = names.map((option) => {
-    const firstLetter = option.name[0].toUpperCase();
-    return {
-      firstLetter: /[0-9]/.test(firstLetter) ? "0-9" : firstLetter,
-      ...option,
-    };
-  });
+  const theme = useTheme();
+
+  //function to fetch user list to map options
+  const getUser = () => {
+    axios
+      .get("http://localhost:8080/user")
+      .then((res) => {
+        setUserData(res.data.user);
+      })
+      .catch((res) => {});
+  };
+
+  //get the host from the local storage
+  const hostDetail = JSON.parse(localStorage.getItem("username")).user._id;
+  //console.log(hostDetail);
+
+  //storing the names of multiple select into an array
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+    setFormData({ ...formdata, [name]: value });
+    // setPersonName(
+    //   // On autofill we get a stringified value.
+    //   typeof value === "string" ? value.split(",") : value
+    // );
+  };
+
+  //console.log(userData);
+  //console.log(personName);
+  //console.log(desc);
+
+  const handleDateChange = (e) => {
+    let datechange = { ...formdata };
+    datechange.date = e.$d.toLocaleString();
+    setFormData(datechange);
+  };
+
+  const handleFromTimeChange = (e) => {
+    let timechange = { ...formdata };
+    timechange.fromtime = e.$d.toLocaleString();
+    timechange.host = hostDetail;
+    setFormData(timechange);
+  };
+
+  const handleToTimeChange = (e) => {
+    let timechange = { ...formdata };
+    timechange.totime = e.$d.toLocaleString();
+    setFormData(timechange);
+  };
+
+  const handleTextChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setFormData({ ...formdata, [name]: value });
+  };
+  console.log(formdata);
+
+  //function to post data from the form
+  const handleClick = () => {
+    console.log("clicked");
+    axios
+      .post(`http://localhost:8080/event/create`, formdata)
+      .then((res) => console.log(res.data))
+      .catch((res) => console.log("eoor", res));
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <>
@@ -96,6 +161,9 @@ export const BookModal = () => {
                   id="outlined-basic"
                   label="Event name"
                   variant="outlined"
+                  name="name"
+                  value={formdata.name}
+                  onChange={handleTextChange}
                   sx={{ width: 300 }}
                   size="small"
                   fullWidth
@@ -104,10 +172,9 @@ export const BookModal = () => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label="Date"
-                      value={date}
-                      onChange={(newValue) => {
-                        setDate(newValue);
-                      }}
+                      value={formdata.date}
+                      name="date"
+                      onChange={handleDateChange}
                       renderInput={(params) => (
                         <TextField
                           {...params}
@@ -118,6 +185,10 @@ export const BookModal = () => {
                     />
                   </LocalizationProvider>
                 </Box>
+                <FormControlLabel
+                  control={<Checkbox sx={{ color: "grey[500]" }} />}
+                  label="Recurring Meeting?"
+                />
                 <Box
                   sx={{
                     display: "flex",
@@ -128,10 +199,14 @@ export const BookModal = () => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <TimePicker
                       label="From"
-                      value={from}
-                      onChange={(newValue) => {
-                        setFrom(newValue);
-                      }}
+                      value={formdata.fromtime}
+                      name="fromtime"
+                      // onChange={(newValue) => {
+                      //   //console.log(newValue.$d.toLocaleString())
+                      //   setFrom(newValue.$d.toLocaleString());
+                      // }}
+                      onChange={handleFromTimeChange}
+                      // onChange={handleFromChange}
                       renderInput={(params) => (
                         <TextField {...params} size="small" />
                       )}
@@ -142,10 +217,12 @@ export const BookModal = () => {
                       label="To"
                       height="10"
                       size="small"
-                      value={to}
-                      onChange={(newValue) => {
-                        setTo(newValue);
-                      }}
+                      value={formdata.totime}
+                      name="totime"
+                      // onChange={(newValue) => {
+                      //   setTo(newValue.$d.toLocaleString());
+                      // }}
+                      onChange={handleToTimeChange}
                       renderInput={(params) => (
                         <TextField {...params} size="small" />
                       )}
@@ -153,30 +230,43 @@ export const BookModal = () => {
                   </LocalizationProvider>
                 </Box>
                 <Box>
-                  <Autocomplete
-                    id="grouped-demo"
-                    size="small"
-                    options={options.sort(
-                      (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
-                    )}
-                    groupBy={(option) => option.firstLetter}
-                    getOptionLabel={(option) => option.name}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => (
-                      <TextField {...params} label="Guests" />
-                    )}
-                  />
+                  <FormControl sx={{ width: 300 }}>
+                    <InputLabel id="demo-multiple-name-label">
+                      Guests
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-name-label"
+                      id="demo-multiple-name"
+                      multiple
+                      value={formdata.guests}
+                      name="guests"
+                      onChange={handleChange}
+                      input={<OutlinedInput label="Name" />}
+                      MenuProps={MenuProps}
+                    >
+                      {userData.map((el) => (
+                        <MenuItem key={el._id} value={el._id}>
+                          {el.firstName} {el.lastName}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </Box>
                 <Box>
                   <TextField
                     id="outlined-multiline-static"
                     label="Description"
+                    value={formdata.description}
+                    name="description"
                     multiline
+                    onChange={handleTextChange}
                     sx={{ width: 300 }}
                     rows={3}
                   />
                 </Box>
-                <Button variant="contained">Contained</Button>
+                <Button variant="contained" onClick={handleClick}>
+                  Create
+                </Button>
               </Box>
             </Box>
             <Box></Box>

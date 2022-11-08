@@ -58,6 +58,7 @@ export const SignIn = () => {
       .then((res) => {
         if (res.data.token) {
           enqueueSnackbar("Login successfull");
+          localStorage.setItem("username", JSON.stringify(res.data));
           navigate("/");
         }
       })

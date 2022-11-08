@@ -16,7 +16,7 @@ router.post("/create", async (req, res) => {
     const event = await Event.create(req.body);
     return res.status(201).send({ event: event });
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    return res.status(500).send({ error: error?.message });
   }
 });
 
