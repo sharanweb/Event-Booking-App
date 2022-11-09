@@ -23,7 +23,7 @@ export const Meetings = () => {
   const handleChange = (event) => {
     //console.log("from selct tag",event.target.value);
     if(event.target.value == hostid){
-      axios.get(`http://localhost:8080/event/host/${event.target.value}`).then((res)=>{
+      axios.get(`https://book2meet.herokuapp.com/event/host/${event.target.value}`).then((res)=>{
         setData(res.data.eventbyid)
         console.log("selected", res.data)
       })
@@ -44,7 +44,7 @@ export const Meetings = () => {
 
   const getData = () => {
     axios
-      .get("http://localhost:8080/event")
+      .get("https://book2meet.herokuapp.com/event")
       .then((res) => {
         setData(res.data.getallevent);
       })

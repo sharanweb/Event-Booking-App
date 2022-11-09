@@ -66,7 +66,7 @@ export const SignUp = () => {
     event.preventDefault();
 
     axios
-      .post("http://localhost:8080/signup", formData)
+      .post("https://book2meet.herokuapp.com/signup", formData)
       .then((res) => {
         if (res.data.token) {
           enqueueSnackbar("registration successfull");

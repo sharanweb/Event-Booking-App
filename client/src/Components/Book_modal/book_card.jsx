@@ -60,7 +60,7 @@ export const BookModal = () => {
   //function to fetch user list to map options
   const getUser = () => {
     axios
-      .get("http://localhost:8080/user")
+      .get("https://book2meet.herokuapp.com/user")
       .then((res) => {
         setUserData(res.data.user);
       })
@@ -111,7 +111,7 @@ export const BookModal = () => {
   const handleClick = () => {
     console.log("clicked");
     axios
-      .post(`http://localhost:8080/event/create`, formdata)
+      .post(`https://book2meet.herokuapp.com/event/create`, formdata)
       .then((res) => console.log(res.data))
       .catch((res) => console.log("eoor", res));
   };

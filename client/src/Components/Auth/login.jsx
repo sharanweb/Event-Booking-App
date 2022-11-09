@@ -56,7 +56,7 @@ export const SignIn = () => {
     event.preventDefault();
 
     axios
-      .post("http://localhost:8080/signin", formData)
+      .post("https://book2meet.herokuapp.com/signin", formData)
       .then((res) => {
         if (res.data.token) {
           enqueueSnackbar("Login successfull");
