@@ -22,11 +22,10 @@ import { blue } from "@mui/material/colors";
 import { useState, useEffect, useContext } from "react";
 import { DateContext } from "../Context/date.context";
 import axios from "axios";
-
-
+import Divider from "@mui/material/Divider";
+import Chip from "@mui/material/Chip";
 
 const theme = createTheme();
-
 
 const ITEM_HEIGHT = 35;
 const ITEM_PADDING_TOP = 8;
@@ -41,10 +40,10 @@ const MenuProps = {
 
 //booking components
 export const BookModal = () => {
-   //storing data from select tag
+  //storing data from select tag
   const [userData, setUserData] = useState([]);
-  const {cdate, setCdate} = useContext(DateContext)
-  console.log("sent to booking",cdate)
+  const { cdate, setCdate } = useContext(DateContext);
+  console.log("sent to booking", cdate);
   const [formdata, setFormData] = useState({
     host: "",
     name: "",
@@ -55,7 +54,7 @@ export const BookModal = () => {
     guests: [],
     description: "",
   });
-  
+
   const theme = useTheme();
 
   //function to fetch user list to map options
@@ -76,10 +75,6 @@ export const BookModal = () => {
   const handleChange = (event) => {
     const { value, name } = event.target;
     setFormData({ ...formdata, [name]: value });
-    // setPersonName(
-    //   // On autofill we get a stringified value.
-    //   typeof value === "string" ? value.split(",") : value
-    // );
   };
 
   //console.log(userData);
@@ -110,7 +105,7 @@ export const BookModal = () => {
     const { name, value } = e.target;
     setFormData({ ...formdata, [name]: value });
   };
-  console.log(formdata);
+  console.log(formdata.guests);
 
   //function to post data from the form
   const handleClick = () => {
@@ -133,7 +128,7 @@ export const BookModal = () => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-between",
+              justifyContent: "space-around",
             }}
           >
             <Box
@@ -276,7 +271,7 @@ export const BookModal = () => {
                 </Button>
               </Box>
             </Box>
-            <Box></Box>
+            
           </Box>
         </Container>
       </ThemeProvider>
