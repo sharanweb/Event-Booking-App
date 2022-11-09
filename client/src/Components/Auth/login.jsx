@@ -3,7 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import { Link as Linked } from "react-router-dom";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -14,6 +13,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { useContext } from "react";
+import { AuthContext } from "../Context/auth.context";
 
 function Copyright(props) {
   return (
@@ -36,6 +37,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export const SignIn = () => {
+  const {detail, setDetail} = useContext(AuthContext);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
@@ -59,10 +61,14 @@ export const SignIn = () => {
         if (res.data.token) {
           enqueueSnackbar("Login successfull");
           localStorage.setItem("username", JSON.stringify(res.data));
+          
+          setDetail(res.data)
+          
           navigate("/");
         }
       })
       .catch((err) => {
+        console.log(err)
         alert("Login Failure! try again");
       });
 

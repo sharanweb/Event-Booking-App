@@ -1,12 +1,13 @@
 const Event = require("../models/event.model");
 const express = require("express");
 const router = express.Router();
+const {DateChecker} = require("../utils/DateChecker")
 
 router.get("", async (req, res) => {
   try {
     const event = await Event.find().populate(["host", "guests"]).lean().exec();
     return res.status(200).send({ getallevent: event });
-  } catch (error) {
+  } catch (error){
     return res.status(500).send({ message: error.message });
   }
 });
@@ -31,8 +32,8 @@ router.get("/:id", async (req, res) => {
 
 router.get("/host/:id", async (req, res) => {
   try {
-    let event = await Event.find().populate().lean().exec();
-    console.log(event)
+    let event = await Event.find().populate(["host", "guests"]).lean().exec();
+    //console.log(event)
     let newarr = [];
     for(let i=0; i<event.length; i++){
       if(event[i].host._id == req.params.id){
@@ -41,10 +42,6 @@ router.get("/host/:id", async (req, res) => {
       }
     }
     return res.status(201).send({ eventbyid: newarr});
-    // if(event.host._id == req.params.id){
-      
-    //   
-    // }
     
   } catch (error) {
     return res.status(500).send(error.message);
@@ -66,7 +63,7 @@ router.patch("/:id", async (req, res) => {
 });
 router.delete("/:id", async (req, res) => {
   try {
-    let event = await Event.findByIdAndDelete(req.params.id, req.body, {
+    let event = await Event.findByIdAndDelete(req.params.id, req.body,{
       new: true,
     })
       .lean()

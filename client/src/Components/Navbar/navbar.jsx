@@ -13,12 +13,22 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../Context/auth.context";
+import { TextField } from "@mui/material";
+import { green } from '@mui/material/colors';
 
 const settings = ["Profile", "Logout"];
 
 export const Navbar = () => {
+  const {details, setDetails} = useContext(AuthContext);
+  //console.log(details)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  //let names = JSON.parse(localStorage.getItem("username"));
+  //console.log(names.user.firstName[0].toUpperCase() + names.user.lastName[0].toUpperCase());
+  //let avname = names.user.firstName[0].toUpperCase() + names.user.lastName[0].toUpperCase()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -33,6 +43,7 @@ export const Navbar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    localStorage.removeItem("username")
   };
 
   return (
@@ -148,10 +159,16 @@ export const Navbar = () => {
             </Link>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display:"flex"}}>
+            <Box sx={{display:"flex", flexDirection:"column", justifyContent:"space-around"}}>
+              {/* {names ? <p>Welcome {names.user.firstName}</p>: null} */}
+            
+            </Box>
+            
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                 <Avatar src="/broken-image.jpg" />
+              
               </IconButton>
             </Tooltip>
             <Menu
@@ -170,11 +187,11 @@ export const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              
+                <MenuItem  onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
-              ))}
+              
             </Menu>
           </Box>
         </Toolbar>

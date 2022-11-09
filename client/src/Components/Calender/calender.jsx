@@ -1,13 +1,23 @@
 import Calendar from "react-calendar";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import 'react-calendar/dist/Calendar.css';
+import {useNavigate} from "react-router-dom";
+import { DateContext } from "../Context/date.context";
 
 export const Calender = () => {
   const [value, onChange] = useState(new Date());
-  console.log(value);
-  console.log(Date());
+  const {cdate, setCdate} = useContext(DateContext)
+  const naviagte = useNavigate();
+  //console.log(value);
+  //console.log(Date());
+
+  const handleDateClick = (e) =>{
+    setCdate(e)
+     naviagte("/book")
+  }
   return (
     <>
-      <Calendar onChange={onChange} value={value} />
+      <Calendar onClickDay={handleDateClick} value={value} />
     </>
   );
 };

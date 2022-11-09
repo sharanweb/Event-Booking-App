@@ -6,16 +6,22 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import { StyledEngineProvider } from "@mui/material/styles";
+import { DateContextProvider } from "./Components/Context/date.context";
+import { AuthContextProvider } from "./Components/Context/auth.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <StyledEngineProvider injectFirst>
-        <SnackbarProvider maxSnack={3}>
-          <App />
-        </SnackbarProvider>
-      </StyledEngineProvider>
+      <AuthContextProvider>
+        <DateContextProvider>
+          <StyledEngineProvider injectFirst>
+            <SnackbarProvider maxSnack={3}>
+              <App />
+            </SnackbarProvider>
+          </StyledEngineProvider>
+        </DateContextProvider>
+      </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

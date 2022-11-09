@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { height } from "@mui/system";
+import { timeChecker } from "../utils/timeChecker";
 
 export const Meetings = () => {
   const [dataa, setData] = useState([]);
@@ -20,8 +21,26 @@ export const Meetings = () => {
   let hostid = JSON.parse(localStorage.getItem("username")).user._id;
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    //console.log("from selct tag",event.target.value);
+    if(event.target.value == hostid){
+      axios.get(`http://localhost:8080/event/host/${event.target.value}`).then((res)=>{
+        setData(res.data.eventbyid)
+        console.log("selected", res.data)
+      })
+    }
+    if(event.target.value == "upcoming"){
+      const updata = [...dataa]
+      console.log(updata)
+      let uparr = [];
+      for(let i=0; i<uparr.length; i++){
+        if(timeChecker(uparr[i]) === "upcoming"){
+          uparr.push(updata[i]);
+        }
+      }
+      console.log("uparr", uparr);
+    }
   };
+  //console.log(age)
 
   const getData = () => {
     axios
@@ -29,9 +48,9 @@ export const Meetings = () => {
       .then((res) => {
         setData(res.data.getallevent);
       })
-      .then((err) => console.log("failed"));
+      .then((err) => console.log(err));
   };
-  console.log(dataa);
+  //console.log(dataa);
 
   useEffect(() => {
     getData();
@@ -56,8 +75,8 @@ export const Meetings = () => {
               label="Age"
               onChange={handleChange}
             >
-              <MenuItem>Completed</MenuItem>
-              <MenuItem >Upcoming</MenuItem>
+              <MenuItem value={"completed"}>Completed</MenuItem>
+              <MenuItem value={"upcoming"}>Upcoming</MenuItem>
               <MenuItem value={hostid}>Hosted by You</MenuItem>
             </Select>
           </FormControl>

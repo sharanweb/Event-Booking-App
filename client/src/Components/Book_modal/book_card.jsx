@@ -19,9 +19,14 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { blue } from "@mui/material/colors";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { DateContext } from "../Context/date.context";
 import axios from "axios";
+
+
+
 const theme = createTheme();
+
 
 const ITEM_HEIGHT = 35;
 const ITEM_PADDING_TOP = 8;
@@ -37,18 +42,20 @@ const MenuProps = {
 //booking components
 export const BookModal = () => {
    //storing data from select tag
-  const [userData, setUserData] = useState([]); //function to fetch user data
+  const [userData, setUserData] = useState([]);
+  const {cdate, setCdate} = useContext(DateContext)
+  console.log("sent to booking",cdate)
   const [formdata, setFormData] = useState({
     host: "",
     name: "",
-    date: "",
+    date: cdate.toLocaleString(),
     type: "onetime",
     fromtime: "",
     totime: "",
     guests: [],
     description: "",
   });
-
+  
   const theme = useTheme();
 
   //function to fetch user list to map options
