@@ -26,7 +26,7 @@ export const Home = () => {
         }}
       >
         <Typography sx={{ align: "centre", fontSize: 15 }}>
-          Now Meeting Your Mates is Easy With book2meet. | Bringing Collegues
+          Now Meeting Your Mates is Easy With book2meet.com | Bringing Collegues
           Together, Productivity Doesn't Bother{" "}
         </Typography>
       </Box>
