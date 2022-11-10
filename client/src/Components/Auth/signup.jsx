@@ -87,8 +87,8 @@ export const SignUp = () => {
 
   return (
     <div className="signup_main">
-      <Container component="main">
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box sx={{display:"flex", flexDirection:"row", justifyContent:"space-around"}}>
+        
           <Box sx={{ margin: 0, padding: 0, alignItems: "center" }}>
             <Box
               sx={{
@@ -109,7 +109,7 @@ export const SignUp = () => {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                Sign up
+                SIGN UP
               </Typography>
               <Box
                 component="form"
@@ -187,15 +187,7 @@ export const SignUp = () => {
               </Box>
             </Box>
           </Box>
-          <img
-            src="https://www.kindpng.com/picc/m/780-7807187_blue-calendar-icon-png-transparent-png.png"
-            alt="jhsdjhsDKJhksdj"
-            className="logoa"
-          ></img>
-        </Box>
-
-        <Copyright sx={{ mt: 4 }} />
-      </Container>
+      </Box>
     </div>
   );
 };

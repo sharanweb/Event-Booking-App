@@ -173,7 +173,7 @@ export const Navbar = () => {
                 </Typography>
               ) : (
                 <Link to={"/signin"} style={{ textDecoration: "none" }}>
-                  <Typography sx={{ mr: 1, color: "white" }}>Signin</Typography>
+                  <Typography sx={{ mr: 1, color: "white" }}>SIGN UP</Typography>
                 </Link>
               )}
             </Box>
@@ -198,10 +198,10 @@ export const Navbar = () => {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Logout</Typography>
-              </MenuItem>
+            >{newhost!== null ? <MenuItem onClick={handleCloseUserMenu}>
+            <Typography textAlign="center">Logout</Typography>
+          </MenuItem>: <Link to={"/signin"} style={{ textDecoration: "none" }}><Typography sx={{paddingLeft:1, paddingRight:1, color:"blue"}}>Sign In</Typography></Link> }
+              
             </Menu>
           </Box>
         </Toolbar>

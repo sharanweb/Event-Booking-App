@@ -95,7 +95,7 @@ export const SignIn = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign In
+            SIGN IN
           </Typography>
           <Box
             component="form"
@@ -136,7 +136,7 @@ export const SignIn = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              SIGN IN
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

@@ -80,9 +80,10 @@ export const Meetings = () => {
           height="80"
           width="80"
           radius="9"
+          
           color="green"
           ariaLabel="loading"
-          wrapperStyle
+          wrapperStyle={{}}
           wrapperClass
         />
       ) : newhost !== null ? (
@@ -101,10 +102,10 @@ export const Meetings = () => {
                   size="small"
                   width="100"
                   value={age}
-                  label="Age"
+                  label="hosted"
                   onChange={handleChange}
                 >
-                  <MenuItem value={"completed"}>Completed</MenuItem>
+                  <MenuItem value={"completed"} >Completed</MenuItem>
                   <MenuItem value={"upcoming"}>Upcoming</MenuItem>
                   <MenuItem value={hostid}>Hosted by You</MenuItem>
                 </Select>

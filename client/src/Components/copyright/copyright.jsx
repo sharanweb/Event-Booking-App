@@ -13,6 +13,7 @@ export const Copyright = () => {
           backgroundColor: "rgb(186, 209, 194)",
           color: "grey",
           textAlign: "center",
+          position:"static",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-around",
