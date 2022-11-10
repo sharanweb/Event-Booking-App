@@ -103,13 +103,13 @@ export const Navbar = () => {
                 <Typography textAlign="center">About</Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Link to={"/meetings"}>
+                <Link to={"/meetings"} style={{textDecoration:"none"}}>
                   <Typography textAlign="center">Meetings</Typography>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
                 <Link href="/about"></Link>
-                <Typography textAlign="center">Calender</Typography>
+                <Typography textAlign="center" >Calender</Typography>
               </MenuItem>
             </Menu>
           </Box>
@@ -133,15 +133,8 @@ export const Navbar = () => {
             book2meet
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Link to={"/about"}>
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                About
-              </Button>
-            </Link>
-            <Link to={"/meetings"}>
+            
+            <Link to={"/meetings"} style={{textDecoration:"none"}}>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
@@ -149,14 +142,7 @@ export const Navbar = () => {
                 Meetings
               </Button>
             </Link>
-            <Link to={"/calender"}>
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                Calender
-              </Button>
-            </Link>
+            
           </Box>
 
           <Box sx={{ flexGrow: 0, display:"flex"}}>

@@ -10,10 +10,21 @@ export const Calender = () => {
   const naviagte = useNavigate();
   //console.log(value);
   //console.log(Date());
+  let hostid;
+  const newhost = JSON.parse(localStorage.getItem("username"));
+  if(newhost != null){
+    hostid = JSON.parse(localStorage.getItem("username"));
+  }
+  console.log("hostnamecalender",hostid)
 
   const handleDateClick = (e) =>{
     setCdate(e)
-     naviagte("/book")
+    if(newhost !== null){
+      naviagte("/book")
+    }else{
+      naviagte("/signin")
+    }
+     
   }
   return (
     <>

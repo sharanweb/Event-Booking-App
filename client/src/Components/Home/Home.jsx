@@ -3,16 +3,32 @@ import Container from "@mui/material/Container";
 import { Box, Button, Divider } from "@mui/material";
 import { Calender } from "../Calender/calender";
 import Link from "@mui/material/Link";
-import { Typography } from '@mui/material';
-import { positions } from '@mui/system';
-
+import { Typography } from "@mui/material";
+import { positions } from "@mui/system";
 
 export const Home = () => {
+  let hostid;
+  const newhost = JSON.parse(localStorage.getItem("username"));
+  if (newhost != null) {
+    hostid = JSON.parse(localStorage.getItem("username")).user._id;
+  }
   return (
     <div className="homemainpage">
-      <Box sx={{ height: 40, mt:0.7, backgroundColor:"rgb(251, 180, 84)", color:"rgb(51, 48, 228)", textAlign:"center", display:"flex", flexDirection:"column", justifyContent:"space-around" }}>
-        <Typography sx={{align:"centre"}}>Now Meeting Your Mates is Easy With book2meet. |  Bringing Collegues Together, Productivity Doesn't Bother </Typography>
-
+      <Box
+        sx={{
+          height: 35,
+          backgroundColor: "rgb(251, 180, 84)",
+          color: "white",
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-around",
+        }}
+      >
+        <Typography sx={{ align: "centre", fontSize: 15 }}>
+          Now Meeting Your Mates is Easy With book2meet. | Bringing Collegues
+          Together, Productivity Doesn't Bother{" "}
+        </Typography>
       </Box>
       <Container>
         <Box
@@ -42,7 +58,8 @@ export const Home = () => {
                 justifyContent: "space-around",
               }}
             >
-              <Link href="/book">
+                
+              <Link href={newhost!== null? "/book" : "/signin"} style={{ textDecoration: "none" }}>
                 <Box
                   sx={{
                     width: 150,
@@ -75,8 +92,21 @@ export const Home = () => {
           </Box>
         </Box>
       </Container>
-      <Box sx={{height: 30, mt:5.2, backgroundColor:"rgb(186, 209, 194)", color:"grey", textAlign:"center", display:"flex", flexDirection:"column", justifyContent:"space-around"}}>
-      <Typography sx={{align:"centre"}}>Copyright © book2meet 2022.</Typography>
+      <Box
+        sx={{
+          height: 30,
+          mt: 5.2,
+          backgroundColor: "rgb(186, 209, 194)",
+          color: "grey",
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-around",
+        }}
+      >
+        <Typography sx={{ align: "centre", fontSize: 10 }}>
+          Copyright © book2meet 2022.
+        </Typography>
       </Box>
     </div>
   );
