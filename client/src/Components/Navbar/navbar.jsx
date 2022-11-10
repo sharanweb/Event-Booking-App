@@ -16,12 +16,15 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Context/auth.context";
 import { TextField } from "@mui/material";
-import { green } from '@mui/material/colors';
+import { green } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
 
 const settings = ["Profile", "Logout"];
 
 export const Navbar = () => {
-  const {details, setDetails} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { details, setDetails, loggedin, setLoggedin } =
+    useContext(AuthContext);
   //console.log(details)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -29,6 +32,15 @@ export const Navbar = () => {
   //let names = JSON.parse(localStorage.getItem("username"));
   //console.log(names.user.firstName[0].toUpperCase() + names.user.lastName[0].toUpperCase());
   //let avname = names.user.firstName[0].toUpperCase() + names.user.lastName[0].toUpperCase()
+  let avname;
+  let first;
+  const newhost = JSON.parse(localStorage.getItem("username"));
+  if (newhost != null) {
+    avname =
+      newhost.user.firstName[0].toUpperCase() +
+      newhost.user.lastName[0].toUpperCase();
+    first = newhost.user.firstName;
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -43,31 +55,35 @@ export const Navbar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-    localStorage.removeItem("username")
+    localStorage.removeItem("username");
+    setLoggedin(false);
+    navigate("/");
   };
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Box sx={{paddingLeft:2, paddingRight:2}}>
         <Toolbar disableGutters>
           {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+          <Box sx={{border:1, mr: 2, padding:1, borderRadius:2}}>
           <Typography
             variant="h6"
             noWrap
             component="a"
             href="/"
             sx={{
-              mr: 2,
+              
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: ".3rem",
+              letterSpacing: ".2rem",
               color: "inherit",
               textDecoration: "none",
             }}
-          >
-            book2meet
-          </Typography>
+          >book2meet</Typography>
+
+          </Box>
+          
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -103,13 +119,13 @@ export const Navbar = () => {
                 <Typography textAlign="center">About</Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Link to={"/meetings"} style={{textDecoration:"none"}}>
+                <Link to={"/meetings"} style={{ textDecoration: "none" }}>
                   <Typography textAlign="center">Meetings</Typography>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
                 <Link href="/about"></Link>
-                <Typography textAlign="center" >Calender</Typography>
+                <Typography textAlign="center">Calender</Typography>
               </MenuItem>
             </Menu>
           </Box>
@@ -133,8 +149,7 @@ export const Navbar = () => {
             book2meet
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            
-            <Link to={"/meetings"} style={{textDecoration:"none"}}>
+            <Link to={"/meetings"} style={{ textDecoration: "none" }}>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
@@ -142,19 +157,30 @@ export const Navbar = () => {
                 Meetings
               </Button>
             </Link>
-            
           </Box>
 
-          <Box sx={{ flexGrow: 0, display:"flex"}}>
-            <Box sx={{display:"flex", flexDirection:"column", justifyContent:"space-around"}}>
-              {/* {names ? <p>Welcome {names.user.firstName}</p>: null} */}
-            
+          <Box sx={{ flexGrow: 0, display: "flex" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+              }}
+            >
+              {newhost != null ? (
+                <Typography sx={{ mr: 1, color: "white" }}>
+                  Welcome {first}
+                </Typography>
+              ) : (
+                <Link to={"/signin"} style={{ textDecoration: "none" }}>
+                  <Typography sx={{ mr: 1, color: "white" }}>Signin</Typography>
+                </Link>
+              )}
             </Box>
-            
+
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                 <Avatar src="/broken-image.jpg" />
-              
+                <Avatar>{avname}</Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -173,15 +199,13 @@ export const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              
-                <MenuItem  onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Logout</Typography>
-                </MenuItem>
-              
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
-      </Container>
+      </Box>
     </AppBar>
   );
 };

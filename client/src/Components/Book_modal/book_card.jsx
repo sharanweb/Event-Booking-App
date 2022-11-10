@@ -68,7 +68,12 @@ export const BookModal = () => {
   };
 
   //get the host from the local storage
-  const hostDetail = JSON.parse(localStorage.getItem("username")).user._id;
+  let hostDetail
+  let hostin = JSON.parse(localStorage.getItem("username"));
+  if(hostin != null){
+    hostDetail = JSON.parse(localStorage.getItem("username")).user._id;
+  }
+  
   //console.log(hostDetail);
 
   //storing the names of multiple select into an array

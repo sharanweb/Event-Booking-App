@@ -92,22 +92,7 @@ export const Home = () => {
           </Box>
         </Box>
       </Container>
-      <Box
-        sx={{
-          height: 30,
-          mt: 5.2,
-          backgroundColor: "rgb(186, 209, 194)",
-          color: "grey",
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-around",
-        }}
-      >
-        <Typography sx={{ align: "centre", fontSize: 10 }}>
-          Copyright © book2meet 2022.
-        </Typography>
-      </Box>
+      
     </div>
   );
 };

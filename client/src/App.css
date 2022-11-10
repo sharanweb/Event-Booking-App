@@ -1,0 +1,8 @@
+.Appmain{
+    position: relative;
+}
+
+.Appcopy{
+    position: static;
+    bottom: 0;
+}
