@@ -4,11 +4,14 @@ import { Box, Button, Divider } from "@mui/material";
 import { Calender } from "../Calender/calender";
 import Link from "@mui/material/Link";
 import { Typography } from '@mui/material';
+import { positions } from '@mui/system';
+
 
 export const Home = () => {
   return (
     <div className="homemainpage">
-      <Box sx={{ height: 40, mt:0.7, backgroundColor:"rgb(251, 180, 84)", color:"rgb(51, 48, 228)" }}>
+      <Box sx={{ height: 40, mt:0.7, backgroundColor:"rgb(251, 180, 84)", color:"rgb(51, 48, 228)", textAlign:"center", display:"flex", flexDirection:"column", justifyContent:"space-around" }}>
+        <Typography sx={{align:"centre"}}>Now Meeting Your Mates is Easy With book2meet. |  Bringing Collegues Together, Productivity Doesn't Bother </Typography>
 
       </Box>
       <Container>
@@ -72,6 +75,9 @@ export const Home = () => {
           </Box>
         </Box>
       </Container>
+      <Box sx={{height: 30, mt:5.2, backgroundColor:"rgb(186, 209, 194)", color:"grey", textAlign:"center", display:"flex", flexDirection:"column", justifyContent:"space-around"}}>
+      <Typography sx={{align:"centre"}}>Copyright © book2meet 2022.</Typography>
+      </Box>
     </div>
   );
 };
