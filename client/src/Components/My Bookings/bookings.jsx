@@ -13,19 +13,29 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { height } from "@mui/system";
 import { timeChecker } from "../utils/timeChecker";
+import { useContext } from "react";
+import { AuthContext } from "../Context/auth.context";
+import { useNavigate } from "react-router-dom";
 
 export const Meetings = () => {
   const [dataa, setData] = useState([]);
   const [age, setAge] = React.useState("");
+  const {detail, setDetail, loggedin, setLoggedin} = useContext(AuthContext);
+  console.log(loggedin);
+  const navigate = useNavigate();
 
-  let hostid = JSON.parse(localStorage.getItem("username")).user._id;
+  let hostid;
+  const newhost = JSON.parse(localStorage.getItem("username"));
+  if(newhost != null){
+    hostid = JSON.parse(localStorage.getItem("username")).user._id;
+  }
 
   const handleChange = (event) => {
     //console.log("from selct tag",event.target.value);
     if(event.target.value == hostid){
       axios.get(`https://book2meet.herokuapp.com/event/host/${event.target.value}`).then((res)=>{
         setData(res.data.eventbyid)
-        console.log("selected", res.data)
+        //console.log("selected", res.data)
       })
     }
     if(event.target.value == "upcoming"){
@@ -48,7 +58,7 @@ export const Meetings = () => {
       .then((res) => {
         setData(res.data.getallevent);
       })
-      .then((err) => console.log(err));
+      .catch((err) => console.log(err));
   };
   //console.log(dataa);
 
@@ -57,7 +67,8 @@ export const Meetings = () => {
   }, []);
 
   return (
-    <div className="meet_body">
+    <>
+    {newhost!== null ? <div className="meet_body">
       <div className="meeting_select">
         <Box>
           <h2 className="meet_title">All Meetings</h2>
@@ -87,6 +98,9 @@ export const Meetings = () => {
           <CardS key={el._id} el={el}></CardS>
         ))}
       </div>
-    </div>
+    </div> : navigate("/signin") }
+    
+    </>
+    
   );
 };

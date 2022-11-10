@@ -37,7 +37,8 @@ function Copyright(props) {
 const theme = createTheme();
 
 export const SignIn = () => {
-  const {detail, setDetail} = useContext(AuthContext);
+  const {detail, setDetail, loggedin, setLoggedin} = useContext(AuthContext);
+  
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
@@ -62,8 +63,8 @@ export const SignIn = () => {
           enqueueSnackbar("Login successfull");
           localStorage.setItem("username", JSON.stringify(res.data));
           
-          setDetail(res.data)
-          
+          setDetail(res.data);
+          setLoggedin(true);
           navigate("/");
         }
       })

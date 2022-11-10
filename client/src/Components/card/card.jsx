@@ -40,7 +40,7 @@ export const CardS = ({ el }) => {
   const tosec = ttarr[0] * 3600 + ttarr[1] * 60 + +ttarr[2]; // converting
   //console.log("ttsec", tosec);
 
-  console.log(DateChecker(today, meet, fromsec, tosec, nowsec));
+  //console.log(DateChecker(today, meet, fromsec, tosec, nowsec));
   // if(DateChecker(today, meet)=== "today"){
   //  // console.log(TimeChecker(fromsec, tosec, nowsec))
   // }
