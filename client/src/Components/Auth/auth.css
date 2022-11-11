@@ -4,3 +4,14 @@
     margin-top: 45px;
     border-radius: 16px;
 }
+
+.mainlogin{
+    margin: auto;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    background-image: url("https://img.freepik.com/premium-vector/gray-snow-vector-blue-background-light-snowfall-backdrop-white-xmas-design-christmas-snowflake-wallpaper_88865-467.jpg?w=740");
+}
+.signup_main{
+    background-image: url("https://img.freepik.com/premium-vector/gray-snow-vector-blue-background-light-snowfall-backdrop-white-xmas-design-christmas-snowflake-wallpaper_88865-467.jpg?w=740");
+}

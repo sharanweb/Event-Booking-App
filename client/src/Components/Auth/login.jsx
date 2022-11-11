@@ -80,12 +80,16 @@ export const SignIn = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+    <div className="mainlogin">
+      
         <Box
           sx={{
+            maxWidth:400,
             marginTop: 8,
+            boxShadow:3,
+            backgroundColor:"white",
+            padding:3,
+            borderRadius: 5,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -147,8 +151,8 @@ export const SignIn = () => {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
-      </Container>
-    </ThemeProvider>
+        
+      
+    </div>
   );
 };
