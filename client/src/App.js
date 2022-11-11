@@ -7,7 +7,10 @@ import "./App.css"
 function App() {
   return (
     <div className="Appmain">
+      
+      <div className="appnavbar">
       <Navbar></Navbar>
+      </div>
       <Allroutes></Allroutes>
       <div className="Appcopy">
         <Copyright></Copyright>

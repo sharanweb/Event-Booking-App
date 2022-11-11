@@ -16,13 +16,14 @@ import { timeChecker } from "../utils/timeChecker";
 import { useContext } from "react";
 import { AuthContext } from "../Context/auth.context";
 import { useNavigate } from "react-router-dom";
-//import logo from  "../images/"
+import Switch from '@mui/material/Switch';
 import { Audio } from "react-loader-spinner";
 
 export const Meetings = () => {
   const [dataa, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [age, setAge] = React.useState("");
+
+  const [checked, setChecked] = React.useState(false);
   const { detail, setDetail, loggedin, setLoggedin } = useContext(AuthContext);
   console.log(loggedin);
   const navigate = useNavigate();
@@ -33,29 +34,31 @@ export const Meetings = () => {
     hostid = JSON.parse(localStorage.getItem("username")).user._id;
   }
 
-  const handleChange = (event) => {
-    //console.log("from selct tag",event.target.value);
-    if (event.target.value == hostid) {
+  const handleChange = () => {
+    console.log("from selct tag", checked);
+    if (checked == true) {
+      console.log("lets get in")
       axios
-        .get(`https://book2meet.herokuapp.com/event/host/${event.target.value}`)
+        .get(`https://book2meet.herokuapp.com/event/host/${hostid}`)
         .then((res) => {
           setData(res.data.eventbyid);
           //console.log("selected", res.data)
         });
+    }if(checked == false){
+      axios
+      .get("https://book2meet.herokuapp.com/event")
+      .then((res) => {
+        setData(res.data.getallevent);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
     }
-    if (event.target.value == "upcoming") {
-      const updata = [...dataa];
-      console.log(updata);
-      let uparr = [];
-      for (let i = 0; i < uparr.length; i++) {
-        if (timeChecker(uparr[i]) === "upcoming") {
-          uparr.push(updata[i]);
-        }
-      }
-      console.log("uparr", uparr);
-    }
+    
   };
-  //console.log(age)
+
+  useEffect(()=>{
+    handleChange();
+  }, [checked])
 
   const getData = () => {
     axios
@@ -73,14 +76,12 @@ export const Meetings = () => {
   }, []);
 
   return (
-    <div>
+    <div className="mybookback">
       {loading ? (
-        
         <Audio
           height="80"
           width="80"
           radius="9"
-          
           color="green"
           ariaLabel="loading"
           wrapperStyle={{}}
@@ -92,24 +93,14 @@ export const Meetings = () => {
             <Box>
               <h2 className="meet_title">All Meetings</h2>
             </Box>
-            <Box sx={{ width: 200, mt: 2, mb: 1 }}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Filter</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  autoWidth
-                  size="small"
-                  width="100"
-                  value={age}
-                  label="hosted"
-                  onChange={handleChange}
-                >
-                  <MenuItem value={"completed"} >Completed</MenuItem>
-                  <MenuItem value={"upcoming"}>Upcoming</MenuItem>
-                  <MenuItem value={hostid}>Hosted by You</MenuItem>
-                </Select>
-              </FormControl>
+            <Box sx={{ width: 180, mt: 2, mb: 1, display:"flex", justifyContent:"space-between"}}>
+              <Switch
+                value={checked}
+                onChange={()=>setChecked(!checked)}
+                inputProps={{ "aria-label": "controlled" }}
+                sx={{mt:0.3}}
+              />
+              <Typography sx={{mt:1, mr:1}}>Hosted By You</Typography>
             </Box>
           </div>
           <div className="card_container">

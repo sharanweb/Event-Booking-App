@@ -173,7 +173,7 @@ export const Navbar = () => {
                 </Typography>
               ) : (
                 <Link to={"/signin"} style={{ textDecoration: "none" }}>
-                  <Typography sx={{ mr: 1, color: "white" }}>SIGN UP</Typography>
+                  <Typography sx={{ mr: 1, color: "white" }}>SIGN IN</Typography>
                 </Link>
               )}
             </Box>

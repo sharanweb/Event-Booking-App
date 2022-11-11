@@ -60,13 +60,14 @@ export const CardS = ({ el }) => {
       <p className="guests">
         Guests: {el.guests[0].firstName} + {el.guests.length - 1}
       </p>
-      <Button variant="contained" size="small">
-        Know More
-      </Button>
+      
+      <div className="descbox">
+        <p className="descriptiontext">Description: {el.description}</p>
+      </div>
       {
-        DateChecker(today, meet, fromsec, tosec, nowsec) == "upcoming" ? <Avatar sx={{ bgcolor: orange[600] }} className="statusmeet">
+        DateChecker(today, meet, fromsec, tosec, nowsec) == "upcoming" ? <Avatar sx={{ bgcolor: "rgb(254, 177, 57)" }} className="statusmeet">
         UP
-      </Avatar> : DateChecker(today, meet, fromsec, tosec, nowsec) == "completed" ? <Avatar sx={{ bgcolor: deepOrange[500] }} className="statusmeet">
+      </Avatar> : DateChecker(today, meet, fromsec, tosec, nowsec) == "completed" ? <Avatar sx={{ bgcolor: "rgb(225, 77, 42)" }} className="statusmeet">
         CP
       </Avatar>: DateChecker(today, meet, fromsec, tosec, nowsec) == "ongoing" ? <Avatar sx={{ bgcolor: lightGreen[700] }} className="statusmeet">
         ON
