@@ -200,7 +200,7 @@ export const Navbar = () => {
               onClose={handleCloseUserMenu}
             >{newhost!== null ? <MenuItem onClick={handleCloseUserMenu}>
             <Typography textAlign="center">Logout</Typography>
-          </MenuItem>: <Link to={"/signin"} style={{ textDecoration: "none" }}><Typography sx={{paddingLeft:1, paddingRight:1, color:"blue"}}>Sign In</Typography></Link> }
+          </MenuItem>: null }
               
             </Menu>
           </Box>
