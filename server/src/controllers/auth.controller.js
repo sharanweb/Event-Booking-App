@@ -3,7 +3,7 @@ const jtw = require("jsonwebtoken");
 require("dotenv").config();
 
 const newToken = (user) => {
-  return jtw.sign({ id: user.id }, process.env.JWT_SECRET);
+  return jtw.sign({ id: user._id }, process.env.JWT_SECRET);
 };
 
 const signup = async (req, res) => {
@@ -32,10 +32,14 @@ const signin = async (req, res) => {
     // if user is found then we will match the passwords
     const match = user.checkPassword(req.body.password);
 
-    if (!match)
+    if (!match){
       return res
-        .status(400)
-        .send({ message: "Please try another email or password" });
+      .status(400)
+      
+      .send({ message: "Please try another email or password" });
+    }
+    //console.log("not matching")
+     
 
     // then we will create the token for that user
     const token = newToken(user);

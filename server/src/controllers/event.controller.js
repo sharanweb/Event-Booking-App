@@ -30,7 +30,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/host/:id", async (req, res) => {
+router.get("/host/:id",async (req, res) => {
   try {
     let event = await Event.find().populate(["host", "guests"]).lean().exec();
     //console.log(event)
